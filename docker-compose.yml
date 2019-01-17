@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+    database:
+        image: mysql:5.7
+        volumes:
+            - database-data:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: symfony
+            MYSQL_DATABASE: symfony
+            MYSQL_USER: symfony
+            MYSQL_PASSWORD: symfony
+
+    php:
+        depends_on:
+            - database
+        build: var/build/php
+        volumes:
+            - "./:/var/www/symfony:rw,cached"
+        links:
+            - database
+
+    nginx:
+        depends_on:
+            - php
+        build: var/build/nginx
+        links:
+            - php
+        volumes:
+            - ./web/:/var/www/symfony/web
+            - ./var/build/nginx/symfony.conf:/etc/nginx/conf.d/symfony.conf
+            - ./var/build/nginx/nginx.conf:/etc/nginx/nginx.conf
+
+            - ./var/logs/nginx/:/var/log/nginx
+        ports:
+            - "80:80"
+
+volumes:
+    database-data:
+        driver: local
