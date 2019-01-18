@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ *
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
@@ -39,6 +40,11 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $avatar;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
 
     public function getId(): ?int
     {
@@ -126,6 +132,18 @@ class User implements UserInterface
     public function setAvatar(?string $avatar): self
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

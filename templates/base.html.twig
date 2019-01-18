@@ -23,12 +23,15 @@
             <a class="p-2 text-dark" href="#">Support</a>
             <a class="p-2 text-dark" href="#">Pricing</a>
         </nav>
-        <div class="btn-group" role="group" aria-label="Basic example">
+        <div class="btn-group" role="group" aria-label="user-section">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-outline-primary" href="{{ path('easyadmin') }}">Admin panel</a>
+            {% endif %}
             {% if app.user %}
-            <a class="btn btn-outline-primary" href="{{ path('app_logout')}}">Logout</a>
+                <a class="btn btn-outline-primary" href="{{ path('app_logout') }}">Logout</a>
             {% else %}
-            <a class="btn btn-outline-primary" href="{{ path('app_login')}}">Sign in</a>
-            <a class="btn btn-outline-primary" href="{{ path('app_register')}}">Register</a>
+                <a class="btn btn-outline-primary" href="{{ path('app_login') }}">Sign in</a>
+                <a class="btn btn-outline-primary" href="{{ path('app_register') }}">Register</a>
             {% endif %}
         </div>
     </div>

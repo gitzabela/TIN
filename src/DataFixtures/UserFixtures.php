@@ -20,6 +20,7 @@ class UserFixtures extends Fixture
     {
         $user = new User();
 
+        $user->setName('Izabela');
         $user->setEmail('izabela.konca@pjwstk.edu.pl');
         $password = $this->passwordEncoder->encodePassword($user, '1q2w3e4r');
         $user->setPassword($password);
