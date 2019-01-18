@@ -1,4 +1,10 @@
 security:
+    always_authenticate_before_granting: true
+
+    role_hierarchy:
+        ROLE_USER: ROLE_USER_NOT_CONFIRMED
+        ROLE_ADMIN: ROLE_USER
+
     encoders:
         App\Entity\User:
             algorithm: argon2i

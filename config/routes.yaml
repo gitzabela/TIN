@@ -5,5 +5,5 @@ app_logout:
   path: /logout
 
 app_dashboard:
-  path: /dashboard
+  path: /
   controller: App\Controller\HomeController::indexAction

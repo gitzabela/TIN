@@ -21,6 +21,14 @@ services:
             - "./:/var/www/symfony:rw,cached"
         links:
             - database
+            - mailcatcher
+
+    mailcatcher:
+        image: yappabe/mailcatcher
+        ports:
+        - 1025:1025
+        - 1080:1080
+
 
     nginx:
         depends_on:

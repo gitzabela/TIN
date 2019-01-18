@@ -46,6 +46,11 @@ class User implements UserInterface
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="string", length=40)
+     */
+    private $confirmationToken;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,7 +75,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -79,10 +84,19 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_USER_NOT_CONFIRMED';
 
         return array_unique($roles);
+    }
+
+    public function isConfirmed(): bool
+    {
+        return isset($this->getRoles()['ROLE_USER']);
+    }
+
+    public function confirm(): void
+    {
+        $this->setRoles(['ROLE_USER']);
     }
 
     public function setRoles(array $roles): self
@@ -97,7 +111,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -144,6 +158,18 @@ class User implements UserInterface
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(string $confirmationToken): self
+    {
+        $this->confirmationToken = $confirmationToken;
 
         return $this;
     }

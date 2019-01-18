@@ -3,5 +3,13 @@
 {% block title %}Your Dashboard{% endblock %}
 
 {% block container %}
+    {% if app.user %}
     <h1>Hello {{ app.user.name }}!</h1>
+
+    {% if app.user. %}
+    {% else %}
+        <h1> Hello guest!</h1>
+
+        Sign in to access all of the features...
+    {% endif %}
 {% endblock %}
