@@ -29,7 +29,7 @@ services:
         links:
             - php
         volumes:
-            - ./web/:/var/www/symfony/web
+            - ./public:/var/www/symfony/public
             - ./var/build/nginx/symfony.conf:/etc/nginx/conf.d/symfony.conf
             - ./var/build/nginx/nginx.conf:/etc/nginx/nginx.conf
 
