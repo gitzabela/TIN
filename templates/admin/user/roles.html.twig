@@ -1,0 +1,7 @@
+{% if item.roles|first == 'ROLE_ADMIN' %}
+    <span class="badge badge-success">Admin</span>
+{% elseif item.roles|first == 'ROLE_USER' %}
+    <span class="badge badge-secondary">User</span>
+{% else %}
+    <span class="badge badge-warning">Not confirmed</span>
+{% endif %}

@@ -84,14 +84,16 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        $roles[] = 'ROLE_USER_NOT_CONFIRMED';
+        if (empty($roles)) {
+            $roles[] = 'ROLE_USER_NOT_CONFIRMED';
+        }
 
         return array_unique($roles);
     }
 
     public function isConfirmed(): bool
     {
-        return isset($this->getRoles()['ROLE_USER']);
+        return !\in_array('ROLE_USER_NOT_CONFIRMED', $this->getRoles(), true);
     }
 
     public function confirm(): void

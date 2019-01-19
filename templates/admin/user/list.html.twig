@@ -1,0 +1,9 @@
+{% extends '@EasyAdmin/default/list.html.twig' %}
+
+{% block item_actions %}
+    {% if item.isConfirmed == false %}
+        <a class="btn btn-primary" href="{{ path('easyadmin', { action: 'confirm', entity: 'User', id: item.id }) }}">Activate user</a>
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}

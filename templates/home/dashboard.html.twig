@@ -5,8 +5,9 @@
 {% block container %}
     {% if app.user %}
     <h1>Hello {{ app.user.name }}!</h1>
-
-    {% if app.user. %}
+    {% if app.user.isConfirmed == false %}
+        Confirm your account to use all features.
+    {% endif %}
     {% else %}
         <h1> Hello guest!</h1>
 
