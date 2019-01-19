@@ -26,9 +26,19 @@ class UserNotifier
     public function requestEmailConfirmation(User $user): void
     {
         $message = new \Swift_Message('Hello email');
-        $message->setFrom('no-reply@projectname.com')
+        $message->setFrom('no-reply@timap.com')
             ->setTo($user->getEmail())
             ->setBody($this->twigEnvironment->render('email/confirmation.html.twig', ['user' => $user]));
+
+        $this->mailer->send($message);
+    }
+
+    public function greetUser(User $user): void
+    {
+        $message = new \Swift_Message('Thank you for your registration');
+        $message->setFrom('no-reply@timap.com')
+            ->setTo($user->getEmail())
+            ->setBody($this->twigEnvironment->render('email/thankyou.html.twig', ['user' => $user]));
 
         $this->mailer->send($message);
     }

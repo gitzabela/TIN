@@ -81,6 +81,8 @@ class RegistrationController extends AbstractController
     {
         try {
             $this->userRepository->confirmUserEmail($confirmationToken);
+            $user = $this->userRepository->findOneBy(['confirmationToken' => $confirmationToken]);
+            $this->userNotifier->greetUser($user);
             $this->addFlash('success', 'Your email has been confirmed! Feel free to use all of the features.');
         } catch (UserDoesNotExist|UserEmailIsAlreadyConfirmed $e) {
             $this->addFlash('warning', $e->getMessage());

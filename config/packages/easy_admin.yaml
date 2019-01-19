@@ -1,5 +1,5 @@
 easy_admin:
-    site_name: 'TIN Projekt Backend'
+    site_name: 'Timap  Backend'
     design:
         brand_color: '#1ABC9C'
     entities:

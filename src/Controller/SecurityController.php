@@ -21,7 +21,6 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // if authenticated
-        dump($this->isGranted('ROLE_USER_NOT_CONFIRMED'));
         if ($this->isGranted('ROLE_USER_NOT_CONFIRMED')) {
             return RedirectResponse::create('/');
         }
