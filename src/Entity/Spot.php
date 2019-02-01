@@ -40,7 +40,7 @@ class Spot
 
     public function isAvailable(): bool
     {
-        return $this->user !== null;
+        return $this->user === null;
     }
 
     public function setStatus(string $status): self

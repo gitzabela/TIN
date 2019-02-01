@@ -18,50 +18,31 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-8">
-                    <div class="card mb-4">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="180"
-                             xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                             role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title>
-                            <rect fill="#868e96" width="100%" height="100%"></rect>
-                            <text fill="#dee2e6" dy=".3em" x="50%" y="50%">Image cap</text>
-                        </svg>
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of
-                                the card's content.</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="float-left" style="font-size: 13px;">
-                                10/01/2019 - 16/01/2019<br>
-                                Paris, France
+                    {% for event in events %}
+                        <div class="card mb-4">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="180"
+                                 xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                                 focusable="false"
+                                 role="img" aria-label="Placeholder: Image cap">
+                                <rect fill="#868e96" width="100%" height="100%"></rect>
+                                <text fill="#dee2e6" dy=".3em" x="50%" y="50%">Image cap</text>
+                            </svg>
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ path('app_event', {id: event.id}) }}">{{ event.title }}</a></h5>
+                                <p class="card-text">{{ event.description }}</p>
                             </div>
-                            <span class="float-right badge badge-secondary m-1">Cook</span>
-                            <span class="float-right badge badge-secondary m-1">Driver</span>
-                        </div>
-                    </div>
-                    <div class="card mb-4">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="180"
-                             xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                             role="img" aria-label="Placeholder: Image cap"><title>Placeholder</title>
-                            <rect fill="#868e96" width="100%" height="100%"></rect>
-                            <text fill="#dee2e6" dy=".3em" x="50%" y="50%">Image cap</text>
-                        </svg>
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                                of
-                                the card's content.</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="float-left" style="font-size: 13px;">
-                                10/01/2019 - 16/01/2019<br>
-                                Paris, France
+                            <div class="card-body">
+                                <div class="float-left" style="font-size: 13px;">
+                                    {{ event.dateFrom|date("m/d/Y") }} - {{ event.dateTo|date("m/d/Y") }}<br>
+                                    {{ event.location }}
+                                </div>
+                                {% for spot in event.spots %}
+                                    <span class="{% if spot.isAvailable %}badge-success {% else %} badge-dark {% endif %}
+                            float-right badge m-1">{{ spot.role.name }}</span>
+                                {% endfor %}
                             </div>
-                            <span class="float-right badge badge-secondary m-1">Cook</span>
-                            <span class="float-right badge badge-secondary m-1">Driver</span>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 <div class="col-4">
                     <div class="card" style="width: 18rem;">

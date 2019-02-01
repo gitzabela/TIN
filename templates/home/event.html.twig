@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ event.title }}
+{% endblock %}
+
+{% block beforeContainer %}
+    <div class="jumbotron jumbotron-fluid event-jumbotron">
+        <div class="container">
+            <h1 class="display-4">Fluid jumbotron</h1>
+            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1>{{ event.title }}</h1>
+                <div class="text-muted">{{ event.dateFrom|date("m/d/Y") }} - {{ event.dateTo|date("m/d/Y") }}
+                    | {{ event.location }} by <a class='btn-link' href="#">@{{ event.owner.name }}</a></div>
+
+                <br>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-12 col-lg-7 mb-4">
+                {{ event.description }}
+            </div>
+            <div class="col-12 col-lg-5">
+                <table class="table table-sm table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th class="text-center">Availability</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for spot in event.spots %}
+                        <tr>
+                            <td>{{ spot.role.name }}</td>
+                            <td class="text-center">
+                                {% if spot.isAvailable %}
+                                    <h5><span class="mt-1 badge badge-pill badge-success">Available</span></h5>
+                                {% else %}
+                                    <span class="badge badge-pill badge-dark">Occupied</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if app.user %}
+                                    <button type="button" class="btn btn-sm btn-block btn-primary">Join the team
+                                    </button>
+                                {% else %}
+                                    <button type="button" class="btn btn-sm btn-block btn-secondary disabled">You need
+                                        to
+                                        login to join the team
+                                    </button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

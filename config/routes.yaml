@@ -7,3 +7,7 @@ app_logout:
 app_dashboard:
   path: /
   controller: App\Controller\HomeController::indexAction
+
+app_event:
+  path: /event/{id}
+  controller: App\Controller\HomeController::eventAction

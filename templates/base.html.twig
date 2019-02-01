@@ -8,7 +8,6 @@
     {% block stylesheets %}
         {# 'app' must match the first argument to addEntry() in webpack.config.js #}
         {{ encore_entry_link_tags('app') }}
-
         <!-- Renders a link tag (if your module requires any CSS)
              <link rel="stylesheet" href="/build/app.css"> -->
     {% endblock %}
@@ -16,7 +15,7 @@
 <body>
 {% block body %}
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <h5 class="my-0 mr-md-auto font-weight-normal">Timap</h5>
+        <h5 class="my-0 mr-md-auto font-weight-normal"><a href="{{ path('app_dashboard') }}">Timap</a></h5>
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="#">Features</a>
             <a class="p-2 text-dark" href="#">Enterprise</a>
@@ -35,6 +34,8 @@
             {% endif %}
         </div>
     </div>
+    {% block beforeContainer %}
+    {% endblock %}
     <div class="container">
         {% block flash_messages %}
             {% for type, messages in app.session.flashbag.all() %}

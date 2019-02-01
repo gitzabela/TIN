@@ -5,8 +5,11 @@ namespace App\DataFixtures;
 use App\Entity\Event;
 use App\Entity\Role;
 use App\Entity\Spot;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Ramsey\Uuid\Uuid;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class EventFixtures extends Fixture
 {
@@ -44,8 +47,20 @@ class EventFixtures extends Fixture
         ],
     ];
 
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     public function load(ObjectManager $manager)
     {
+        $userIzabela = $this->createUser($manager);
+
         $roles = [];
         foreach (self::ROLES_TO_ADD as $roleName) {
             $role = new Role();
@@ -57,6 +72,7 @@ class EventFixtures extends Fixture
 
         foreach (self::EVENTS_TO_ADD as $eventToAdd) {
             $event = new Event();
+            $event->setOwner($userIzabela);
             $event->setTitle($eventToAdd['name']);
             $event->setDescription($eventToAdd['description']);
             $event->setDateFrom(new \DateTime($eventToAdd['dateFrom']));
@@ -74,5 +90,22 @@ class EventFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    private function createUser(ObjectManager $manager): User
+    {
+        $user = new User();
+
+        $user->setName('Izabela');
+        $user->setEmail('izabela.konca@pjwstk.edu.pl');
+        $password = $this->passwordEncoder->encodePassword($user, '1q2w3e4r');
+        $user->setPassword($password);
+        $user->setRoles(['ROLE_ADMIN']);
+        $user->setConfirmationToken(Uuid::uuid4()->toString());
+
+        $manager->persist($user);
+        $manager->flush();
+
+        return $user;
     }
 }
