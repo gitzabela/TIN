@@ -7,20 +7,13 @@
 {% block beforeContainer %}
     <div class="jumbotron jumbotron-fluid event-jumbotron">
         <div class="container">
-            <h1 class="display-4">Fluid jumbotron</h1>
-            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+            <h1 class="display-4">{{ event.title }}</h1>
+            <p class="lead">{{ event.dateFrom|date("m/d/Y") }} - {{ event.dateTo|date("m/d/Y") }}
+                | {{ event.location }} by <a class='btn-link' href="#">@{{ event.owner.name }}</a>
+            </p>
         </div>
     </div>
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1>{{ event.title }}</h1>
-                <div class="text-muted">{{ event.dateFrom|date("m/d/Y") }} - {{ event.dateTo|date("m/d/Y") }}
-                    | {{ event.location }} by <a class='btn-link' href="#">@{{ event.owner.name }}</a></div>
-
-                <br>
-            </div>
-        </div>
         <div class="row">
 
             <div class="col-12 col-lg-7 mb-4">
@@ -43,13 +36,16 @@
                                 {% if spot.isAvailable %}
                                     <h5><span class="mt-1 badge badge-pill badge-success">Available</span></h5>
                                 {% else %}
-                                    <span class="badge badge-pill badge-dark">Occupied</span>
+                                    <h5><span class="badge badge-pill badge-dark">Occupied</span></h5>
                                 {% endif %}
                             </td>
                             <td>
-                                {% if app.user %}
-                                    <button type="button" class="btn btn-sm btn-block btn-primary">Join the team
-                                    </button>
+                                {% if app.user and spot.available and not event.hasUser(app.user) %}
+                                    <a href="{{ path('app_event_join', {'id': spot.id }) }}"
+                                       class="btn btn-sm btn-block btn-primary">Join the team
+                                    </a>
+                                {% elseif app.user %}
+
                                 {% else %}
                                     <button type="button" class="btn btn-sm btn-block btn-secondary disabled">You need
                                         to

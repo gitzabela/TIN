@@ -11,3 +11,7 @@ app_dashboard:
 app_event:
   path: /event/{id}
   controller: App\Controller\HomeController::eventAction
+
+app_event_join:
+  path: /event/join/{id}
+  controller: App\Controller\HomeController::joinEventAction

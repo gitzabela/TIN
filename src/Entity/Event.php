@@ -59,9 +59,15 @@ class Event
      */
     private $owner;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Role")
+     */
+    private $role;
+
     public function __construct()
     {
         $this->spots = new ArrayCollection();
+        $this->role = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,6 +178,17 @@ class Event
         return $this;
     }
 
+    public function hasUser(User $user): bool
+    {
+        foreach ($this->getSpots() as $spot) {
+            if ($spot->getUser() === $user) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function getOwner(): ?User
     {
         return $this->owner;
@@ -180,6 +197,32 @@ class Event
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getRole(): Collection
+    {
+        return $this->role;
+    }
+
+    public function addRole(Role $role): self
+    {
+        if (!$this->role->contains($role)) {
+            $this->role[] = $role;
+        }
+
+        return $this;
+    }
+
+    public function removeRole(Role $role): self
+    {
+        if ($this->role->contains($role)) {
+            $this->role->removeElement($role);
+        }
 
         return $this;
     }

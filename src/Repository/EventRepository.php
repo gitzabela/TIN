@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use App\Entity\Spot;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -25,5 +26,13 @@ class EventRepository extends ServiceEntityRepository
         ], [
             'dateFrom' => 'ASC'
         ]);
+    }
+
+    public function save(Spot $spot): void
+    {
+        $em = $this->getEntityManager();
+
+        $em->persist($spot);
+        $em->flush();
     }
 }

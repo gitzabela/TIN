@@ -11,7 +11,7 @@ easy_admin:
             list:
                 title: 'User list'
                 actions:
-                    - { name: 'edit', css_class: 'btn btn-sm btn-warning' }
+                    - { name: 'edit', css_class: 'btn btn-sm btn-warning mb-1' }
                     - { name: 'delete', css_class: 'btn btn-sm  btn-danger' }
                 fields:
                     - id
@@ -24,3 +24,19 @@ easy_admin:
                     - email
                     - { property: 'password', type: 'text', type_options: { required: false } }
                     - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
+        Event:
+            class: App\Entity\Event
+            controller: App\Controller\AdminController
+            list:
+                title: 'Event list'
+                actions:
+                - { name: 'edit', css_class: 'btn btn-sm btn-warning mb-1' }
+                - { name: 'delete', css_class: 'btn btn-sm  btn-danger' }
+        Role:
+            class: App\Entity\Role
+            controller: App\Controller\AdminController
+            list:
+                title: 'Role list'
+                actions:
+                - { name: 'edit', css_class: 'btn btn-sm btn-warning mb-1' }
+                - { name: 'delete', css_class: 'btn btn-sm  btn-danger' }

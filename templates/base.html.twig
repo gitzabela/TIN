@@ -15,7 +15,8 @@
 <body>
 {% block body %}
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <h5 class="my-0 mr-md-auto font-weight-normal"><a href="{{ path('app_dashboard') }}">Timap</a></h5>
+        <h5 class="my-0 mr-md-auto font-weight-normal"><a
+                    href="{{ path('app_dashboard') }}">Timap</a> {% if app.user %} @{{ app.user.name }}{% endif %}</h5>
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="#">Features</a>
             <a class="p-2 text-dark" href="#">Enterprise</a>
@@ -41,7 +42,8 @@
             {% for type, messages in app.session.flashbag.all() %}
                 {% for message in messages %}
                     <div class="alert alert-{{ type }} alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span
+                                    class="sr-only">Close</span></button>
                         {{ message | raw }}
                     </div>
                 {% endfor %}
