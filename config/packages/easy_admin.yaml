@@ -40,3 +40,19 @@ easy_admin:
                 actions:
                 - { name: 'edit', css_class: 'btn btn-sm btn-warning mb-1' }
                 - { name: 'delete', css_class: 'btn btn-sm  btn-danger' }
+        Spot:
+            class: App\Entity\Spot
+            controller: App\Controller\AdminController
+            list:
+                title: 'Spot list'
+                actions:
+                - { name: 'edit', css_class: 'btn btn-sm btn-warning mb-1' }
+                - { name: 'delete', css_class: 'btn btn-sm  btn-danger' }
+        Category:
+            class: App\Entity\Category
+            controller: App\Controller\AdminController
+            list:
+                title: 'Category list'
+                actions:
+                - { name: 'edit', css_class: 'btn btn-sm btn-warning mb-1' }
+                - { name: 'delete', css_class: 'btn btn-sm  btn-danger' }
